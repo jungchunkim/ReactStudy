@@ -1,18 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
 
-// 하나의 최상위 태그만 써야된다.
-class Subject extends Component {
-  render() {
-    return (
-      <header>
-        <h1> WEB </h1>
-        world wide web!!
-      </header>
-    );
-  }
 
-}
 
 class TOC extends Component {
   render() {
@@ -32,21 +21,37 @@ class Content extends Component {
   render() {
     return (
       <article>
-        <h2>HTML</h2>
-        HTML is HyperText Markup Language
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
       </article>
     );
   }
 }
 
+// 하나의 최상위 태그만 써야된다.
+// how to make props
+class Subject extends Component {
+  render() {
+    return (
+      <header>
+        <h1> {this.props.title} </h1>
+        {this.props.sub}
+      </header>
+    );
+  }
+
+}
+
 // 컴포넌트 만드는 코드
+// props를 사용하여 원하는대로 바꿀 수 있음
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Subject></Subject>
+        <Subject title="WEB" sub="world wide web!"></Subject>
+        <Subject title="React" sub="For UI"></Subject>
         <TOC></TOC>
-        <Content></Content>
+        <Content title="cheon" desc="react prac"></Content>
       </div>
 
     );
