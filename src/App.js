@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       // read mode , welcome mode
       mode: "read",
+      selected_content_id: 2,
       subject: { title: 'WEB', sub: 'World wide web!' },
       welcome: { title: "Welcome", desc: "Hello, React!!" },
       contents: [
@@ -31,8 +32,17 @@ class App extends Component {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
     } else if (this.state.mode === 'read') {
-      _title = this.state.contents[0].title;
-      _desc = this.state.contents[0].desc;
+      var i = 0;
+      while (i < this.state.contents.length) {
+        var data = this.state.contents[i];
+        if (data.id === this.state.selected_content_id) {
+          _title = data.title;
+          _desc = data.desc;
+          break;
+        }
+        i = i + 1;
+      }
+
     }
 
 
@@ -47,21 +57,15 @@ class App extends Component {
           }.bind(this)}
         >
         </Subject>
-        {/*<header>
-          <h1><a href="/" onClick={function (e) {
-            console.log(e);
-            // 기본적인 동작방법을 못하게 해야할 때 사용하는 함수
-            e.preventDefault();
-            //this.state.mode = 'welcome'; (react 모르게 바꾸는 방식 -> 값이 바뀐지 몰라서 rendering 안함)
-            // state를 변경할 때 setState를 사용해서 변경해줘야한다.
+        <TOC
+          data={this.state.contents}
+          onChangePage={function (id) {
             this.setState({
-              mode: 'welcome'
+              mode: 'read',
+              selected_content_id: Number(id)
             });
-          }.bind(this)}>{this.state.subject.title}</a></h1>
-          {this.state.subject.sub}
-        </header>
-        */}
-        <TOC data={this.state.contents}></TOC>
+          }.bind(this)}
+        ></TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>
 
