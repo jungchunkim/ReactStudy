@@ -38,11 +38,16 @@ class App extends Component {
 
     return (
       <div className="App">
-        {/*<Subject
+        <Subject
           title={this.state.subject.title}
-          sub={this.state.subject.sub}>
-        </Subject>*/}
-        <header>
+          sub={this.state.subject.sub}
+          //이벤트 전달받은거 실행
+          onChangePage={function () {
+            this.setState({ mode: 'welcome' });
+          }.bind(this)}
+        >
+        </Subject>
+        {/*<header>
           <h1><a href="/" onClick={function (e) {
             console.log(e);
             // 기본적인 동작방법을 못하게 해야할 때 사용하는 함수
@@ -55,6 +60,7 @@ class App extends Component {
           }.bind(this)}>{this.state.subject.title}</a></h1>
           {this.state.subject.sub}
         </header>
+        */}
         <TOC data={this.state.contents}></TOC>
         <Content title={_title} desc={_desc}></Content>
       </div>
