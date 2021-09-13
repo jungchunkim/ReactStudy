@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       // read mode , welcome mode
-      mode: "welcome",
+      mode: "read",
       subject: { title: 'WEB', sub: 'World wide web!' },
       welcome: { title: "Welcome", desc: "Hello, React!!" },
       contents: [
@@ -43,9 +43,16 @@ class App extends Component {
           sub={this.state.subject.sub}>
         </Subject>*/}
         <header>
-          <h1><a href="/" onClick={function () {
-            alert('hi');
-          }}>{this.state.subject.title}</a></h1>
+          <h1><a href="/" onClick={function (e) {
+            console.log(e);
+            // 기본적인 동작방법을 못하게 해야할 때 사용하는 함수
+            e.preventDefault();
+            //this.state.mode = 'welcome'; (react 모르게 바꾸는 방식 -> 값이 바뀐지 몰라서 rendering 안함)
+            // state를 변경할 때 setState를 사용해서 변경해줘야한다.
+            this.setState({
+              mode: 'welcome'
+            });
+          }.bind(this)}>{this.state.subject.title}</a></h1>
           {this.state.subject.sub}
         </header>
         <TOC data={this.state.contents}></TOC>
