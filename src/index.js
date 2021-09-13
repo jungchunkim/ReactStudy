@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// 함수 첫 번째 파라미터를 두 번째 파라미터에 
 ReactDOM.render(
   <React.StrictMode>
     <App />
