@@ -15,6 +15,7 @@ class App extends Component {
   // 제일 먼저 시작해서 초기화 담당
   constructor(props) {
     super(props);
+    this.max_content_id = 3;
     this.state = {
       // read mode , welcome mode
       mode: "read",
@@ -49,7 +50,22 @@ class App extends Component {
       _article = <ReadContent title={_title} desc={_desc}></ReadContent>
     }
     else if (this.state.mode == 'create') {
-      _article = <CreateContent></CreateContent>
+      _article = <CreateContent onSubmit={function (_title, _desc) {
+        // add content to this.state.contents
+        this.max_content_id = this.max_content_id + 1;
+        //this.state.contents.push(
+        //  { id: this.max_content_id, title: _title, desc: _desc }
+        //);
+
+        var _contents = this.state.contents.concat(
+          { id: this.max_content_id, title: _title, desc: _desc }
+        )
+        this.setState({
+          contents: _contents
+        });
+
+        console.log(_title, _desc);
+      }.bind(this)}></CreateContent>
 
     }
 
