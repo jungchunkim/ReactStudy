@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import './App.css';
 import TOC from "./components/TOC"
-import Content from "./components/Content"
+import ReadContent from "./components/ReadContent"
+import CreateContent from "./components/CreateContent"
+import Control from "./components/Control"
 import Subject from "./components/Subject"
 
 
@@ -27,11 +29,13 @@ class App extends Component {
     }
   }
   render() {
-    var _title, _desc = null;
+    var _title, _desc, _article = null;
     if (this.state.mode === 'welcome') {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
-    } else if (this.state.mode === 'read') {
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
+    }
+    else if (this.state.mode === 'read') {
       var i = 0;
       while (i < this.state.contents.length) {
         var data = this.state.contents[i];
@@ -42,6 +46,10 @@ class App extends Component {
         }
         i = i + 1;
       }
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
+    }
+    else if (this.state.mode == 'create') {
+      _article = <CreateContent></CreateContent>
 
     }
 
@@ -57,16 +65,25 @@ class App extends Component {
           }.bind(this)}
         >
         </Subject>
+
         <TOC
           data={this.state.contents}
+          //  여기있는 함수가 TOC.js에서 실행되는 것!! (넘기는거)
           onChangePage={function (id) {
             this.setState({
+              // 클릭했을 때 상태를 변경한다는 뜻
+              // 첫번째 -> 1 , 두 번째 -> 2 , 세 번째 -> 3
               mode: 'read',
               selected_content_id: Number(id)
             });
           }.bind(this)}
         ></TOC>
-        <Content title={_title} desc={_desc}></Content>
+        <Control onChangeMode={function (_mode) {
+          this.setState({
+            mode: _mode
+          });
+        }.bind(this)}></Control>
+        {_article}
       </div>
 
     );
